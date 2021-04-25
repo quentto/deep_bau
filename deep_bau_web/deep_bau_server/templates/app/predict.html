@@ -4,8 +4,8 @@
 <div class="container-fluid con">
   <div class="row d-flex justify-content-center">
       <div class="col-md-3">
-          <div class="card">
-              <h5 class="card-header">Baustelle</h5>
+          <div class="card text-dark bg-light mb-3">
+              <h5 class="card-header">Process Miner</h5>
               <div class="card-body">
                 <form action="{% url 'predict' %}" method="post">
                 <div class="form-group"> 
@@ -13,7 +13,15 @@
                 </div> <br/>
                 <div class="form-group"> 
                   <input type="text" class="form-control" name="days" placeholder="Letzten Tage"> 
-                </div> 
+                </div> <br/>
+                <div class="form-group"> 
+                  <label>Von:</label>
+                  <input type="date" class="form-control" name=""> 
+                </div>
+                <div class="form-group"> 
+                  <label>Bis:</label>
+                  <input type="date" class="form-control" name=""> 
+                </div>
               </div>
               <div class="card-footer d-flex justify-content-center">
                 <input type="submit" value="Mine" class="btn btn-primary">
@@ -22,31 +30,73 @@
             </div>
       </div>
 
-      <div class="col-md-9">
+      <div class="col-md-6">
           <div class="card">
               <h5 class="card-header">Tätigkeiten</h5>
               <div class="card-body d-flex justify-content-center">
               {% if image %}
-              <svg width=1000px height=600px viewbox="0 0 1000 600">{{image | safe}}</svg>
+              <svg width=700px height=600px viewbox="0 0 700 600">{{image | safe}}</svg>
               {% endif %}
               </div>
+              <div class="card-footer d-flex justify-content-center">
+                <input type="submit" value=".xlsx Export" class="btn btn-primary">
+              </div>
             </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card">
+          <h5 class="card-header">Zukunfstplaner</h5>
+          <div class="card-body">
+            <label for="customRange1" class="form-label">Tage:</label>
+            <input type="range" class="form-range" id="customRange1">
+          </div>
+          <div class="card-footer d-flex justify-content-center">
+            <input type="submit" value="Predict" class="btn btn-primary">
+          </div>
+        </div>
       </div>
   </div>
   <br/>
   <div class="row d-flex justify-content-center">
     <div class="col-md-3">
+      <div class="card">
+        <h5 class="card-header">Top 5 Ähnliche Projekte</h5>
+        <div class="card-body">
+          <ol>
+            <li>101213</li>
+            <li>101227</li>
+            <li>101321</li>
+            <li>203451</li>
+            <li>103841</li>
+          </ol>
+        </div>
+      </div>
     </div>
 
-    <div class="col-md-9">
+    <div class="col-md-6">
         <div class="card">
             <h5 class="card-header">Personen</h5>
             <div class="card-body d-flex justify-content-center">
               {% if image %}
-              <svg width=1000px height=600px viewbox="0 0 1000 600">{{personen | safe}}</svg>
+              <svg width=700px height=600px viewbox="0 0 700 600">{{personen | safe}}</svg>
               {% endif %}
               </div>
+              <div class="card-footer d-flex justify-content-center">
+                <input type="submit" value=".xlsx Export" class="btn btn-primary">
+              </div>
           </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card">
+        <h5 class="card-header">Zukunfstplaner</h5>
+        <div class="card-body">
+          <label for="customRange1" class="form-label">Tage:</label>
+          <input type="range" class="form-range" id="customRange1">
+        </div>
+        <div class="card-footer d-flex justify-content-center">
+          <input type="submit" value="Predict" class="btn btn-primary">
+        </div>
+      </div>
     </div>
   </div> 
   <br/>
@@ -54,7 +104,7 @@
     <div class="col-md-3">
     </div>
 
-    <div class="col-md-9">
+    <div class="col-md-6">
         <div class="card">
             <h5 class="card-header">Wetter</h5>
             <div class="card-body d-flex justify-content-center">
@@ -62,7 +112,22 @@
               <svg width=1000px height=600px viewbox="0 0 1000 600">{{wetter | safe}}</svg>
               {% endif %}
               </div>
+              <div class="card-footer d-flex justify-content-center">
+                <input type="submit" value=".xlsx Export" class="btn btn-primary">
+              </div>
           </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card">
+        <h5 class="card-header">Zukunfstplaner</h5>
+        <div class="card-body">
+          <label for="customRange1" class="form-label">Tage:</label>
+          <input type="range" class="form-range" id="customRange1">
+        </div>
+        <div class="card-footer d-flex justify-content-center">
+          <input type="submit" value="Predict" class="btn btn-primary">
+        </div>
+      </div>
     </div>
   </div>
   <br/>
@@ -70,7 +135,7 @@
     <div class="col-md-3">
     </div>
 
-    <div class="col-md-9">
+    <div class="col-md-6">
         <div class="card">
             <h5 class="card-header">Geräte</h5>
             <div class="card-body d-flex justify-content-center">
@@ -78,7 +143,22 @@
                 <svg width=1000px height=600px viewbox="0 0 1000 600">{{geraete | safe}}</svg>
               {% endif %}
               </div>
+              <div class="card-footer d-flex justify-content-center">
+                <input type="submit" value=".xlsx Export" class="btn btn-primary">
+              </div>
           </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card">
+        <h5 class="card-header">Zukunfstplaner</h5>
+        <div class="card-body">
+          <label for="customRange1" class="form-label">Tage:</label>
+          <input type="range" class="form-range" id="customRange1">
+        </div>
+        <div class="card-footer d-flex justify-content-center">
+          <input type="submit" value="Predict" class="btn btn-primary">
+        </div>
+      </div>
     </div>
   </div>
 </div>

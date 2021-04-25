@@ -18,9 +18,9 @@ import matplotlib.pyplot as plt
 df = pd.read_csv('/home/tquentel/projects/SDaCathon/deep_bau/data/features/df_deep_bau.csv', index_col=0)
 
 
-topic = "Tätigkeit"
+topic = "GeraetID"
 project_id = 101227
-date = 15
+date = 30
 
 df = df[df["BaustelleID"] == project_id]
 df = df.tail(date)
@@ -48,7 +48,7 @@ df.replace(0, np.nan, inplace=True)
 
 fig, ax = plt.subplots(1, 1)
 #sns.set_style(style='white')
-sns.set(rc={'figure.figsize':(10,5)})
+sns.set(rc={'figure.figsize':(15,10)})
 
 cmap=sns.cm.rocket_r
 sns.heatmap(df, cmap=cmap, square=True, annot=True, cbar=0)

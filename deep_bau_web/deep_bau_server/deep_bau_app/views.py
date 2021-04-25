@@ -53,7 +53,7 @@ def predict(request):
                    "image": viz_process(df, "Tätigkeit", id, days),
                    "personen": viz_process(df, "Person", id, days),
                    "geraete": viz_process(df, "GeraetID", id, days),
-                   "wetter": viz_process(df, "Wetter", id, days)
+                   "wetter": viz_process(df, "Wetter", id, days),
                    }
 
         return render(request, 'app/predict.html', context)
