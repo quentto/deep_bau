@@ -1,51 +1,53 @@
-#%%
 import pandas as pd
 import numpy as np
 import datetime as dt
 import seaborn as sns
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-import plotly.express as px
 
-#%%
-df = pd.read_csv('/home/tquentel/projects/SDaCathon/deep_bau/data/preprocessed/aggregated_by_day.csv', index_col=0)
+from io import StringIO
 
-#%%
-
-df = df[df["Projekt Id"] == 101227]
+df = pd.read_csv('/home/tquentel/projects/SDaCathon/deep_bau/data/features/df_deep_bau.csv', index_col=0)
 
 
-#%%
-df = df.loc[:, (df != 0).any(axis=0)]
+def viz_process(df, topic, project_id, date):
 
-df.set_index(df["Datum"], inplace=True)
-df = df.filter(regex='Tätigkeit_')
-df.columns = df.columns.str.replace(r'Tätigkeit_', '')
-
-
-#%%
-
-
-df = df.transpose()
-df.replace(0, np.nan, inplace=True)
-
-
-#%%
-fig, ax = plt.subplots(1, 1)
-sns.set_style(style='white')
-sns.set(rc={'figure.figsize':(15,15)})
-
-cmap=sns.cm.rocket_r
-g1 = sns.heatmap(df, cmap=cmap, square=True, annot=True, linewidths=0, cbar=0)
-# g1.set(xticklabels=[])
-
-
-for i in range(df.shape[1]+1):
-    ax.axhline(i, color='white', lw=2)
+    df = df[df["BaustelleID"] == project_id]
+    df = df.tail(date)
+        
+    df = df.loc[:, (df != 0).any(axis=0)]
     
-xticks = ax.get_xticks()
+    df.set_index(df["Datum"], inplace=True)
+    df = df.filter(regex=topic)
+    df.columns = df.columns.str.replace(f'{topic}_', '')
     
-fig.autofmt_xdate()
     
-fig.set
+    df = df.transpose()
+    df.replace(0, np.nan, inplace=True)
+    
+    fig, ax = plt.subplots(1, 1)
+    #sns.set_style(style='white')
+    sns.set(rc={'figure.figsize':(10,5)})
+    
+    cmap=sns.cm.rocket_r
+    sns.heatmap(df, cmap=cmap, square=True, annot=True, cbar=0)
+    
+    for i in range(df.shape[1]+1):
+        ax.axhline(i, color='white', lw=2)
+        
+    #xticks = ax.get_xticks()
+    fig.autofmt_xdate()
+    fig.set
+    
+    imgdata = StringIO()
+    fig.savefig(imgdata, format='svg')
+    imgdata.seek(0)
 
-plt.show()
+    data = imgdata.getvalue()
+    
+    plt.close()
+    
+    return data #, df
+
+#data = viz_process(df, "Tätigkeit", 101227, 100)

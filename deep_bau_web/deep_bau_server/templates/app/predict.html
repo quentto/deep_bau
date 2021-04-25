@@ -1,28 +1,22 @@
 {% extends 'app/app_base.html' %}
 
 {% block content %}
-<div class="container">
+<div class="container-fluid con">
   <div class="row d-flex justify-content-center">
       <div class="col-md-3">
           <div class="card">
-              <h5 class="card-header">Prediction</h5>
+              <h5 class="card-header">Baustelle</h5>
               <div class="card-body">
                 <form action="{% url 'predict' %}" method="post">
-                <label for="team_name">Enter name: </label>
-                <div class="form-group">
-                  <select class="form-control" name="model" id="model">
-                    <option value=0 selected disabled hidden>Select Project</option>
-                    {% for project in projects %}
-                      <option value=1>{{project.name}}</option>
-                    {% endfor %}
-                  </select>
-                </div> </br>
                 <div class="form-group"> 
-                  <input type="date" class="form-control" id="data" placeholder="Json Format"> 
+                  <input type="text" class="form-control" name="id" placeholder="101227"> 
+                </div> <br/>
+                <div class="form-group"> 
+                  <input type="text" class="form-control" name="days" placeholder="Letzten Tage"> 
                 </div> 
               </div>
               <div class="card-footer d-flex justify-content-center">
-                <input type="submit" value="Predict" class="btn btn-primary">
+                <input type="submit" value="Mine" class="btn btn-primary">
                   </div>
                 </form>
             </div>
@@ -30,37 +24,62 @@
 
       <div class="col-md-9">
           <div class="card">
-              <h5 class="card-header">Lean Construction Chart</h5>
-              <div class="card-body">
-                  <div id="output"></div>
+              <h5 class="card-header">Tätigkeiten</h5>
+              <div class="card-body d-flex justify-content-center">
+              {% if image %}
+              <svg width=1000px height=600px viewbox="0 0 1000 600">{{image | safe}}</svg>
+              {% endif %}
               </div>
             </div>
       </div>
   </div>
+  <br/>
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-3">
+    </div>
+
+    <div class="col-md-9">
+        <div class="card">
+            <h5 class="card-header">Personen</h5>
+            <div class="card-body d-flex justify-content-center">
+              {% if image %}
+              <svg width=1000px height=600px viewbox="0 0 1000 600">{{personen | safe}}</svg>
+              {% endif %}
+              </div>
+          </div>
+    </div>
+  </div> 
+  <br/>
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-3">
+    </div>
+
+    <div class="col-md-9">
+        <div class="card">
+            <h5 class="card-header">Wetter</h5>
+            <div class="card-body d-flex justify-content-center">
+              {% if image %}
+              <svg width=1000px height=600px viewbox="0 0 1000 600">{{wetter | safe}}</svg>
+              {% endif %}
+              </div>
+          </div>
+    </div>
+  </div>
+  <br/>
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-3">
+    </div>
+
+    <div class="col-md-9">
+        <div class="card">
+            <h5 class="card-header">Geräte</h5>
+            <div class="card-body d-flex justify-content-center">
+              {% if image %}
+                <svg width=1000px height=600px viewbox="0 0 1000 600">{{geraete | safe}}</svg>
+              {% endif %}
+              </div>
+          </div>
+    </div>
+  </div>
 </div>
-
-<script>
-    $("#input").submit(function (e) {//c
-      e.preventDefault();
-      var jsonData = {};
-  
-      var data = $('#data').val();//c
-
-      jsonData["data"] = data;
-      jsonData["csrfmiddlewaretoken"] = "{{csrf_token}}";
-
-      $.ajax({
-        type: 'POST',
-        url: "{% url 'predict' %}",//c
-        data: JSON.stringify(jsonData),
-        success: function (response) {
-          $("#output").html(response);
-  
-        },
-        error: function (response) {
-          alert("error");
-        }
-      })
-    })
-</script>
 {% endblock content %}

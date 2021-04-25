@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div class="container-fluid nav">
+    <div class="container-fluid nav text-center">
       
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -7,12 +7,7 @@
 
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
-          <a class="nav-link disabled" style="color: white;">Version 0.1.0</a>
-        {% for link in links %}
-            <li class="nav-item">
-                <a class="nav-link {% if link in request.path %} active {% endif %}" href="{{link}}">{{link}}</a>
-            </li>
-        {% endfor %}
+          <a class="nav-link disabled" style="color: white;">Process Miner</a>
         </ul>
       </div>
     </div>

@@ -15,6 +15,9 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import plotly.express as px
 
+from deep_bau_app.utils.heatmap import viz_process
+
+
 @csrf_exempt
 def index(request):
     return render(request, "index.html")
@@ -41,13 +44,16 @@ def predict(request):
 
     elif request.method == "POST":
         
+        df = pd.read_csv('/home/tquentel/projects/SDaCathon/deep_bau/data/features/df_deep_bau.csv', index_col=0)
         
-        
-
-        with open(image_path, "rb") as image_file:
-            image_data = base64.b64encode(image_file.read()).decode('utf-8')
+        id = int(request.POST['id'])
+        days = int(request.POST['days'])
 
         context = {"projects": projects,
-                   "image": image_data}
+                   "image": viz_process(df, "Tätigkeit", id, days),
+                   "personen": viz_process(df, "Person", id, days),
+                   "geraete": viz_process(df, "GeraetID", id, days),
+                   "wetter": viz_process(df, "Wetter", id, days)
+                   }
 
-        return render(request, 'app/predict/index.html', context)
+        return render(request, 'app/predict.html', context)
