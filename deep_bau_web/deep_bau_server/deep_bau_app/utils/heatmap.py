@@ -22,6 +22,17 @@ def viz_process(df, topic, project_id, date):
     df = df.filter(regex=topic)
     df.columns = df.columns.str.replace(f'{topic}_', '')
     
+    col_set = df.columns.to_list()
+    order = []
+    for i in range(date):
+        test = df.iloc[i,:]
+        activities = [col_set[a] for a, x in enumerate(test) if x > 0]
+        
+        for activity in activities:
+            if activity not in order:
+                order.append(activity)
+        
+    df = df[order]
     
     df = df.transpose()
     df.replace(0, np.nan, inplace=True)
